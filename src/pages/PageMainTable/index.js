@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AppContext from '../../context';
 import { tableCategories, TableRow, TableItem } from '../../components/Table';
@@ -13,6 +14,8 @@ const MainWrapper = styled.div`
   align-content: center;
   justify-content: center;
   align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
 `;
 
 const TableWrapper = styled.div`
@@ -80,7 +83,7 @@ const PageMainTable = () => {
       {tableLength ? (
         <>
           <TableWrapper>
-            <TableRow>
+            <TableRow as={Link}>
               {tableCategories.map(item => (
                 <TableItem key={item}>{item}</TableItem>
               ))}
@@ -93,7 +96,7 @@ const PageMainTable = () => {
                   index >= currentPage * resultPerPage - resultPerPage,
               )
               .map(item => (
-                <TableRow key={item.id}>
+                <TableRow key={item.id} as={Link} to={`/companies/${item.id}`}>
                   <TableItem>{item.id}</TableItem>
                   <TableItem>{item.name}</TableItem>
                   <TableItem>{item.city}</TableItem>

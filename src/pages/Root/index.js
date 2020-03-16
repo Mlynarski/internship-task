@@ -5,6 +5,7 @@ import GlobalStyle from '../../style';
 import AppContext from '../../context';
 import Spinner from '../../components/Spinner';
 import PageMainTable from '../PageMainTable';
+import PageItemDetails from '../PageItemDetails';
 
 const Root = () => {
   const [apiData, setApiData] = useState(null);
@@ -25,6 +26,7 @@ const Root = () => {
         <AppContext.Provider value={apiData}>
           <Switch>
             <Route exact path="/" component={PageMainTable} />
+            <Route path="/companies/:id" component={PageItemDetails} />
           </Switch>
         </AppContext.Provider>
       )}

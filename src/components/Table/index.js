@@ -8,22 +8,26 @@ export const TableRow = styled.div`
   grid-template-rows: 50px;
   margin-bottom: 15px;
   border-radius: 4px;
-
-  &:not(:first-of-type) {
-    -webkit-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
-    -moz-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
-    box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
-  }
+  text-decoration: none;
+  color: #000000;
+  outline: none;
 
   &:first-of-type {
     background-color: #9baaab;
     margin-top: 15px;
+    cursor: default;
   }
 
   &:hover {
     &:not(:first-of-type) {
       background-color: #d5d5d5;
     }
+  }
+
+  &:not(:first-of-type) {
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
+    box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
   }
 
   /*MOBILE VIEW*/
