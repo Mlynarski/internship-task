@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 16px;
+    font-size: 14px;
     font-family:  'Ubuntu', 'Times New Roman';
   }
 

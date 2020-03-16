@@ -5,7 +5,7 @@ export const calcTotalIncomes = incomes => {
     total += Number(item.value);
   });
 
-  return total;
+  return total.toFixed(2);
 };
 
 export const calcAverageIncomes = () => {};
