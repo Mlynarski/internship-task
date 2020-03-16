@@ -9,7 +9,7 @@ import Button from '../../components/Button';
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: calc(100vh - 30px);
   width: 100%;
   align-content: center;
   justify-content: center;
