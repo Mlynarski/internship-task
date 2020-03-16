@@ -31,6 +31,7 @@ export const TableRow = styled.div`
     margin-top: 15px;
     margin-bottom: 15px;
     width: 100%;
+    min-width: 350px;
     grid-template-columns: auto;
     grid-template-rows: auto;
     grid-template-areas:
