@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Details() {
+function PageItemDetails() {
   return <div>hello world</div>;
 }
 
-export default Details;
+export default PageItemDetails;
