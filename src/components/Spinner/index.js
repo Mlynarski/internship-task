@@ -45,7 +45,7 @@ const Spinner = ({ failed }) => (
   <SpinnerWrapper>
     {failed ? <FailedText>:(</FailedText> : <Circle />}
     {failed ? (
-      <SpinnerText>Poblem with server, please try again later...</SpinnerText>
+      <SpinnerText>Problem with server, please try again later...</SpinnerText>
     ) : (
       <SpinnerText>Loading data...</SpinnerText>
     )}

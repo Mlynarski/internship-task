@@ -1,28 +1,74 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AppContext from '../../context';
 import { tableCategories, TableRow, TableItem } from '../../components/Table';
 import TextInput from '../../components/TextInput';
+import Button from '../../components/Button';
 
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   width: 100%;
-  height: 100%;
   align-content: center;
   justify-content: center;
   align-items: center;
-  padding: 15px;
 `;
 
 const TableWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 405px;
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+`;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  min-height: 455px;
+  font-weight: bold;
 `;
 
 const PageMainTable = () => {
   const tableData = useContext(AppContext);
   const [filterValue, setFilterValue] = useState('');
+
+  // pagination
+  const tableLength = tableData.filter(item =>
+    item.name.toUpperCase().includes(filterValue.toUpperCase()),
+  ).length;
+
+  const resultPerPage = 5;
+
+  const numOfPages = Math.ceil(tableLength / resultPerPage);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const nextPage = () => {
+    if (currentPage < numOfPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // when number of results change, go to first page
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [numOfPages]);
 
   return (
     <MainWrapper>
@@ -31,23 +77,39 @@ const PageMainTable = () => {
         value={filterValue}
         onChange={e => setFilterValue(e.target.value)}
       />
-      <TableWrapper>
-        <TableRow>
-          {tableCategories.map(item => (
-            <TableItem key={item}>{item}</TableItem>
-          ))}
-        </TableRow>
-        {tableData
-          .filter(item => item.name.toUpperCase().includes(filterValue.toUpperCase()))
-          .map(item => (
-            <TableRow key={item.id}>
-              <TableItem>{item.id}</TableItem>
-              <TableItem>{item.name}</TableItem>
-              <TableItem>{item.city}</TableItem>
-              <TableItem>{item.totalIncomes}</TableItem>
+      {tableLength ? (
+        <>
+          <TableWrapper>
+            <TableRow>
+              {tableCategories.map(item => (
+                <TableItem key={item}>{item}</TableItem>
+              ))}
             </TableRow>
-          ))}
-      </TableWrapper>
+            {tableData
+              .filter(item => item.name.toUpperCase().includes(filterValue.toUpperCase()))
+              .filter(
+                (item, index) =>
+                  index < currentPage * resultPerPage &&
+                  index >= currentPage * resultPerPage - resultPerPage,
+              )
+              .map(item => (
+                <TableRow key={item.id}>
+                  <TableItem>{item.id}</TableItem>
+                  <TableItem>{item.name}</TableItem>
+                  <TableItem>{item.city}</TableItem>
+                  <TableItem>{item.totalIncomes}</TableItem>
+                </TableRow>
+              ))}
+          </TableWrapper>
+          <PaginationWrapper>
+            <Button onClick={prevPage}>🡠</Button>
+            {currentPage} / {numOfPages}
+            <Button onClick={nextPage}>🡢</Button>
+          </PaginationWrapper>
+        </>
+      ) : (
+        <InfoWrapper>No results</InfoWrapper>
+      )}
     </MainWrapper>
   );
 };
