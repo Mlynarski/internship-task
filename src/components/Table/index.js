@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const tableCategories = ['ID', 'NAME', 'CITY', 'TOTAL INCOME'];
 
@@ -12,23 +12,24 @@ export const TableRow = styled.div`
   color: #000000;
   outline: none;
 
-  &:first-of-type {
-    background-color: #9baaab;
-    margin-top: 15px;
-    cursor: default;
-  }
+  ${props =>
+    props.header &&
+    css`
+      background-color: #9baaab;
+      margin-top: 15px;
+    `}
 
-  &:hover {
-    &:not(:first-of-type) {
-      background-color: #d5d5d5;
-    }
-  }
+  ${props =>
+    !props.header &&
+    css`
+      &:hover {
+        background-color: #d5d5d5;
+      }
+      -webkit-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
+      -moz-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
+      box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
+    `}
 
-  &:not(:first-of-type) {
-    -webkit-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
-    -moz-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
-    box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
-  }
 
   /*MOBILE VIEW*/
   @media (max-width: 950px) {
@@ -45,11 +46,11 @@ export const TableRow = styled.div`
       'val4';
 
     /* HIDE TABLE HEADER IN MOBILE VIEW*/
-    &:not(:only-of-type) {
-      &:first-of-type {
+    ${props =>
+      props.header &&
+      css`
         display: none;
-      }
-    }
+      `}
   }
 `;
 

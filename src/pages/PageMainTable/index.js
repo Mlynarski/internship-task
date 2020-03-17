@@ -83,7 +83,7 @@ const PageMainTable = () => {
       {tableLength ? (
         <>
           <TableWrapper>
-            <TableRow as={Link}>
+            <TableRow header>
               {tableCategories.map(item => (
                 <TableItem key={item}>{item}</TableItem>
               ))}
