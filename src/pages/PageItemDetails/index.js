@@ -1,10 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import AppContext from '../../context';
-import { calcAverageIncomesBetween, calcAverageIncomes, calcTotalIncomesBetween } from '../../calc';
+import {
+  calcMonthlyIncomes,
+  calcAverageIncomesBetween,
+  calcAverageIncomes,
+  calcTotalIncomesBetween,
+} from '../../calc';
 import TextInput from '../../components/TextInput';
 import ItemLabel from '../../components/ItemLabel';
+import generateGraph from './graph';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -30,6 +36,23 @@ const DataWrapper = styled.div`
   -webkit-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
   -moz-box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
   box-shadow: 0px 0px 5px 5px rgba(196, 196, 196, 0.24);
+  animation: animationIn 0.6s;
+
+  @keyframes animationIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`;
+
+const GraphWrapper = styled.div`
+  @media (max-width: 950px) {
+    width: 90vw;
+  }
+  width: 60vw;
 `;
 
 const PageItemDetails = () => {
@@ -38,13 +61,20 @@ const PageItemDetails = () => {
   id = parseInt(id, 10);
   const ItemData = useContext(AppContext).filter(item => item.id === id)[0];
 
-  // date
+  // date for calculations
   const today = new Date();
   const [toDate, setToDate] = useState(today.toISOString().slice(0, 10));
 
   const todayMinusOneMonth = new Date();
   todayMinusOneMonth.setMonth(todayMinusOneMonth.getMonth() - 1);
   const [fromDate, setFromDate] = useState(todayMinusOneMonth.toISOString().slice(0, 10));
+
+  // graph
+  const graphCanvas = useRef(null);
+
+  useEffect(() => {
+    generateGraph(graphCanvas, calcMonthlyIncomes(ItemData.incomes));
+  }, [graphCanvas, ItemData.incomes]);
 
   return (
     <MainWrapper>
@@ -79,6 +109,9 @@ const PageItemDetails = () => {
           />
         </ItemLabel>
       </DataWrapper>
+      <GraphWrapper>
+        <canvas ref={graphCanvas} />
+      </GraphWrapper>
     </MainWrapper>
   );
 };

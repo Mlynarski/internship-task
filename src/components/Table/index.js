@@ -11,6 +11,16 @@ export const TableRow = styled.div`
   text-decoration: none;
   color: #000000;
   outline: none;
+  animation: animationIn 0.6s;
+
+  @keyframes animationIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
   ${props =>
     props.header &&

@@ -105,9 +105,9 @@ const PageMainTable = () => {
               ))}
           </TableWrapper>
           <PaginationWrapper>
-            <Button onClick={prevPage}>🡠</Button>
+            <Button onClick={prevPage}>←</Button>
             {currentPage} / {numOfPages}
-            <Button onClick={nextPage}>🡢</Button>
+            <Button onClick={nextPage}>→</Button>
           </PaginationWrapper>
         </>
       ) : (

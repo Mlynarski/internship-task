@@ -7,7 +7,7 @@ const Button = styled.button`
   border: 2px solid #9baaab;
   border-radius: 4px;
   transition: border-color 0.2s ease;
-  font-size: 14px;
+  font-size: 20px;
   outline: none;
   margin-left: 20px;
   margin-right: 20px;

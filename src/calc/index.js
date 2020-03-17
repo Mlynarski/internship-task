@@ -59,3 +59,29 @@ export const calcAverageIncomesBetween = (from, to, incomes) => {
   }
   return 0;
 };
+
+export const calcMonthlyIncomes = incomes => {
+  const monthlyIncomes = [];
+
+  incomes.forEach(income => {
+    const getYear = Number(income.date.slice(0, 4));
+    const getMonth = Number(income.date.slice(5, 7));
+
+    if (monthlyIncomes.some(item => item.year === getYear)) {
+      monthlyIncomes[monthlyIncomes.findIndex(obj => obj.year === getYear)].months[
+        getMonth - 1
+      ] += Number(income.value);
+    } else {
+      monthlyIncomes.push({
+        year: getYear,
+        months: [...Array(12).fill(0)],
+      });
+
+      monthlyIncomes[monthlyIncomes.findIndex(obj => obj.year === getYear)].months[
+        getMonth - 1
+      ] += Number(income.value);
+    }
+  });
+
+  return monthlyIncomes;
+};
