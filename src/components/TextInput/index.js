@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const TextInput = styled.input`
   box-sizing: border-box;
-  width: 310px;
+  width: ${props => (props.width ? props.width : 310)}px;
   height: 50px;
   border: 2px solid #9baaab;
   border-radius: 4px;
